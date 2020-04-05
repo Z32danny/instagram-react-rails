@@ -22,6 +22,12 @@ gem 'puma', '~> 4.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'knock' # Authentication Solution
+gem 'bcrypt', '~> 3.1.7' # To hash our passwords
+gem 'active_model_serializers' #Used to serialize our data (Note: As of this writing AMS is undergoing large development changes, if looking for another solution I'd recommend fast_jsonapi)
+gem 'jwt' #Ruby implementation of RFC 7519 OAuth JWT standard
+gem 'rack-cors' #this is a necessary for communication with our client
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
