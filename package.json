@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "lodash": "^4.17.15",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-form": "^8.3.2",
+    "redux-thunk": "^2.3.0"
   }
 }
