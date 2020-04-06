@@ -22,3 +22,14 @@ export const fetchPosts = ()=> {
         });
     }
 }
+
+export const deletePost = (id) => {
+    return async (dispatch) => {
+        await rails.delete(`/post/${id}`);
+
+        dispatch({
+            type: DELETE_POST,
+            payload: id
+        });
+    }
+}

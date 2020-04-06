@@ -6,6 +6,13 @@ module Api
         def show
             render json: @post
         end
+
+        # GET /posts
+        def index
+            @posts = Post.all
+
+            render json: @posts
+        end
         
         def create
             @post = Post.create(post_params)

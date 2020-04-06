@@ -8,6 +8,21 @@ class PostList extends React.Component {
     componentDidMount() {
         this.props.fetchPosts();
     }
+
+    renderList() {
+        return this.props.posts.map(post => {
+            return (
+                <div key={post.id}>
+                    <div>
+                        {post.description}
+                    </div>
+                    <p>
+                        {post.user_id}
+                    </p>
+                </div>
+            );
+        });
+    }
     
     render() {
 
@@ -16,8 +31,11 @@ class PostList extends React.Component {
         const image = this.props.image;
         const caption = this.props.caption;
 
+        console.log(this.props.posts);
+
         return (
             <article className="Post" ref="Post">
+                <div>{this.renderList()}</div>
                 <header>
                     <div className="Post-user">
                     <div className="Post-user-avatar">
@@ -41,6 +59,8 @@ class PostList extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return { posts: Object.values(state.posts) };
+}
 
-
-export default connect(null, { fetchPosts })(PostList);
+export default connect(mapStateToProps, { fetchPosts })(PostList);
