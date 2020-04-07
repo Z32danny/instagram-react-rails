@@ -10,8 +10,10 @@ export default (state = {}, action) => {
     switch (action.type) {
         case FETCH_POSTS:
             return {...state, ..._.mapKeys(action.payload, 'id')}
-        case DELETE_POSTS:
-            return _omit(state, action.payload);
+        case FETCH_POST:
+            return {...state, [action.payload.id]: action.payload }
+        case DELETE_POST:
+            return _.omit(state, action.payload);
         default:
             return state;
     }

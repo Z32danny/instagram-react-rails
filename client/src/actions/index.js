@@ -12,7 +12,7 @@ export const createPost = (formValues)=> {
     }
 }
 
-export const fetchPosts = ()=> {
+export const fetchPosts = () => {
     return async (dispatch) => {
         const response = await rails.get('/posts');
 
@@ -23,9 +23,20 @@ export const fetchPosts = ()=> {
     }
 }
 
+export const fetchPost = (id) => {
+    return async (dispatch) => {
+        const response = await rails.get(`/posts/${id}`);
+
+        dispatch({
+            type: FETCH_POST,
+            payload: response.data            
+        })
+    }
+}
+
 export const deletePost = (id) => {
     return async (dispatch) => {
-        await rails.delete(`/post/${id}`);
+        await rails.delete(`/posts/${id}`);
 
         dispatch({
             type: DELETE_POST,

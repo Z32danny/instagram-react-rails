@@ -1,57 +1,28 @@
 import React from 'react';
+import { Router, Route, Switch } from "react-router-dom";
 import '../App.css';
 import Header from './Header';
 import PostList from './PostList/PostList';
-import Post from './Post';
-import rails from '../apis/rails';
+import PostShow from './PostShow/PostShow';
+import PostDelete from './PostDelete/PostDelete';
+import history from '../history';
+//import PostCreate from './streams/PostCreate';
 
 class App extends React.Component {
-  state = { users: [] }; 
-  
-  async componentDidMount() {
-    const response = await rails.get('/users')
-    console.log(response)
-
-    this.setState({ users: response.data });
-  }
 
   render() {
-
-    const {users} = this.state
-
-    const userList = users.length ? (
-      users.map(user => {
-        return (
-          <div key={user.id}>
-            {user.first_name}
-          </div>
-        )
-      })
-    ) : (
-      <div>
-        No users yet
-      </div>
-    )
-
     return (
       <div className="App">
-        <Header />
-          <section className="App-main">
-            {userList}
-            <PostList />
-            <Post 
-              nickname="Chris" 
-              avatar="https://www.laravelnigeria.com/img/chris.jpg" 
-              caption="Moving the community!" 
-              image="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg" />
-            <Post 
-              nickname="OG" 
-              avatar="https://www.laravelnigeria.com/img/chris.jpg" 
-              aption="Holding a mic" 
-              image="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg" />
-
-            {/* more posts */}
-          </section>
+          <Router history={history}>
+            <div>
+              <Header />
+              <Switch>
+                <Route path="/" exact component={PostList} />
+                <Route path="/posts/delete/:id" exact component={PostDelete} />
+                <Route path="/posts/:id" exact component={PostShow} />
+              </Switch>
+            </div>
+          </Router>
       </div>
     );
   }
