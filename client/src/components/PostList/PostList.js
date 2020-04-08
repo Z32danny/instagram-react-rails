@@ -4,6 +4,7 @@ import {fetchPosts} from "../../actions";
 import PostDelete from '../PostDelete/PostDelete'
 import PostShow from '../PostShow/PostShow'
 import {Link} from 'react-router-dom';
+import rails from '../../apis/rails';
 
 import "./PostList.css";
 
@@ -43,12 +44,63 @@ class PostList extends React.Component {
             );
         });
     }
+
+    async login() {
+        const email = document.getElementById('email').value
+        const password = document.getElementById('password').value
+        const request = {"email": email, "password": password}
+        console.log(request)
+
+        const result = await rails.post('/user_token', {
+            auth: request
+        })
+
+        console.log(result)
+        localStorage.setItem("jwt", result.data.jwt)
+    };
+
+    logout() {
+        localStorage.clear();    
+    }
     
     render() {
         return (
+
+            <div>
+            <form>
+                <label htmlFor="email">
+                    Email: 
+                </label>
+                <br />
+                <input
+                    name="email"
+                    id="email"
+                    type="email"
+                />
+                <br /><br />
+                <label htmlFor="password">
+                    Password:
+                </label>
+                <br />
+                <input
+                    name="password"
+                    id="password"
+                    type="password"
+                />
+            </form>
+            <br />
+            <button onClick={this.login} >
+                Login
+            </button>
+            <button onClick={this.logout} >
+                Logout
+            </button>
+
             <div>
                 {this.renderList()}
             </div>
+            </div>
+
         );
     }
 }

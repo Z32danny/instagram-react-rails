@@ -14,7 +14,10 @@ export const createPost = (formValues)=> {
 
 export const fetchPosts = () => {
     return async (dispatch) => {
-        const response = await rails.get('/posts');
+        const local = localStorage.getItem("jwt")
+        const token = `Bearer ${local}`
+        console.log(token)
+        const response = await rails.get('/posts', {headers: { Authorization: token }} );
 
         dispatch({
             type: FETCH_POSTS,
